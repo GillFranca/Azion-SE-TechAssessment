@@ -1,0 +1,77 @@
+#This file represents how static files, such as .css are byPassing the WAF controls
+
+curl -v -X POST https://fklsxzla7sy.map.azionedge.net/json
+
+* Host fklsxzla7sy.map.azionedge.net:443 was resolved.
+* IPv6: (none)
+* IPv4: 201.6.30.179, 200.178.1.227, 201.6.30.163
+*   Trying 201.6.30.179:443...
+* Connected to fklsxzla7sy.map.azionedge.net (201.6.30.179) port 443
+* ALPN: curl offers h2,http/1.1
+* (304) (OUT), TLS handshake, Client hello (1):
+*  CAfile: /etc/ssl/cert.pem
+*  CApath: none
+* (304) (IN), TLS handshake, Server hello (2):
+* (304) (IN), TLS handshake, Unknown (8):
+* (304) (IN), TLS handshake, Certificate (11):
+* (304) (IN), TLS handshake, CERT verify (15):
+* (304) (IN), TLS handshake, Finished (20):
+* (304) (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / AEAD-AES256-GCM-SHA384 / [blank] / UNDEF
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=BR; ST=Rio Grande do Sul; L=Porto Alegre; O=AZION TECHNOLOGIES; CN=azion.com
+*  start date: Dec 16 21:51:11 2025 GMT
+*  expire date: Jan 17 21:51:10 2027 GMT
+*  subjectAltName: host "fklsxzla7sy.map.azionedge.net" matched cert's "*.map.azionedge.net"
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign ECC CloudSSL CA - SHA384 - G3
+*  SSL certificate verify ok.
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://fklsxzla7sy.map.azionedge.net/json
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: fklsxzla7sy.map.azionedge.net]
+* [HTTP/2] [1] [:path: /json]
+* [HTTP/2] [1] [user-agent: curl/8.7.1]
+* [HTTP/2] [1] [accept: */*]
+> POST /json HTTP/2
+> Host: fklsxzla7sy.map.azionedge.net
+> User-Agent: curl/8.7.1
+> Accept: */*
+> 
+* Request completely sent off
+< HTTP/2 200 
+< date: Wed, 27 May 2026 17:45:47 GMT
+< content-type: application/json; charset=utf-8
+< content-length: 421
+< access-control-allow-credentials: true
+< access-control-allow-origin: *
+< server: Fly/b59e3505 (2026-05-27)
+< via: 1.1 fly.io, 1.1 fly.io
+< fly-request-id: 01KSN8NRG2S29WNG1KNQ3MY24H-gru
+< x-azion-request-id: 4d7b09e16b12427d69cfd5124349e1e0
+< x-azion-edge-location: CGH
+< alt-svc: h3=":443"; ma=86400
+< 
+{
+  "slideshow": {
+    "author": "Yours Truly",
+    "date": "date of publication",
+    "slides": [
+      {
+        "title": "Wake up to WonderWidgets!",
+        "type": "all"
+      },
+      {
+        "items": [
+          "Why <em>WonderWidgets</em> are great",
+          "Who <em>buys</em> WonderWidgets"
+        ],
+        "title": "Overview",
+        "type": "all"
+      }
+    ],
+    "title": "Sample Slide Show"
+  }
+}
+* Connection #0 to host fklsxzla7sy.map.azionedge.net left intact
