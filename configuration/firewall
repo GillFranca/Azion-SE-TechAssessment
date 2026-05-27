@@ -1,0 +1,25 @@
+{
+  "count": 1,
+  "total_pages": 1,
+  "schema_version": 3,
+  "links": {
+    "previous": null,
+    "next": null
+  },
+  "results": [
+    {
+      "id": 48946,
+      "last_editor": "guidcc@gmail.com",
+      "last_modified": "2026-05-27T17:52:09.959052Z",
+      "name": "GFranca-Main-Firewall",
+      "is_active": true,
+      "edge_functions_enabled": true,
+      "network_protection_enabled": true,
+      "waf_enabled": true,
+      "debug_rules": false,
+      "domains": [
+        1779846880
+      ]
+    }
+  ]
+}
