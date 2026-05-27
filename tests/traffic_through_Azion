@@ -1,0 +1,15 @@
+curl -v https://fklsxzla7sy.map.azionedge.net/get 2>&1 | grep -E "x-azion|HTTP/"
+
+
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://fklsxzla7sy.map.azionedge.net/get
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: fklsxzla7sy.map.azionedge.net]
+* [HTTP/2] [1] [:path: /get]
+* [HTTP/2] [1] [user-agent: curl/8.7.1]
+* [HTTP/2] [1] [accept: */*]
+> GET /get HTTP/2
+< HTTP/2 200 
+< x-azion-request-id: 1691362be75d839a8e06d9a067f71777
+< x-azion-edge-location: CGH
