@@ -1,0 +1,14 @@
+curl -I https://fklsxzla7sy.map.azionedge.net/image/jpeg
+
+
+HTTP/2 200 
+date: Wed, 27 May 2026 17:39:59 GMT
+content-type: image/jpeg
+access-control-allow-credentials: true
+access-control-allow-origin: *
+server: Fly/f21a23c89c (2026-05-26)
+via: 1.1 fly.io, 1.1 fly.io
+fly-request-id: 01KSN8B54XTJG6HADBDFRX25RK-gru
+x-azion-request-id: ce3b0def2dcedf56b2c641aec7f6503a
+x-azion-edge-location: CGH
+alt-svc: h3=":443"; ma=86400
