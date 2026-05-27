@@ -1,0 +1,255 @@
+### Usage of Azion CoPilot ###
+
+
+# Question 1:
+
+I need to protect an application recently created on Azion as a reverse proxy with low cost and fast deployment.
+Requirements: Protect only /login with WAF
+Bypass heavy inspection for static files (recommended regex for bypass: .(css|js|ttf|eof|woff|woff2|svg|jpg|jpeg|gif|bmp|png|ico)(?.*)?$
+Optimize cache for static assets
+Use origin pull
+Minimize operational cost
+Suggest: Recommended architecture
+Required Azion services
+Minimal viable configuration
+Suggested Rules
+Engine structure
+Suggested cache strategy
+Review the WAF JSON Regex: .(css|js|ttf|eof|woff|woff2|svg|jpg|jpeg|gif|bmp|png|ico)(?.*)?$
+
+# Answer:
+Recommended Architecture and Configuration for Protecting an Application with Azion
+Architecture Overview
+Reverse Proxy Setup:
+Use Azion's Edge Application as a reverse proxy to route all traffic through the edge.
+Configure the origin to pull content dynamically.
+WAF Protection:
+Apply Web Application Firewall (WAF) only to the /login endpoint.
+Use a bypass rule for static files to minimize inspection overhead.
+Cache Optimization:
+Aggressively cache static assets at the edge to reduce origin requests and improve performance.
+Use advanced cache key rules to optimize caching for static content.
+Cost Optimization:
+Leverage Azion's caching capabilities to reduce origin pull and bandwidth costs.
+Apply selective WAF inspection to reduce processing overhead.
+
+Required Azion Services
+Edge Application: For reverse proxy and cache configuration.
+Web Application Firewall (WAF): To protect the /login endpoint.
+Application Accelerator: To enable advanced cache key and optimize caching for static assets.
+
+Minimal Viable Configuration
+Edge Application:
+Set up the origin with your backend server's address.
+Enable HTTPS for secure communication.
+WAF Configuration:
+Create a WAF rule set for /login with blocking mode.
+Bypass WAF inspection for static assets using the provided regex.
+Cache Settings:
+Configure aggressive caching for static assets.
+Use a high TTL (e.g., 1 year) for static files.
+Rules Engine:
+Create rules to apply WAF only to /login.
+Create rules to bypass cache for dynamic content and optimize static asset caching.
+
+Suggested Rules Engine Structure
+Rule 1: Apply WAF to /login
+Criteria: ${request_uri} is equal to /login
+Behavior: Set WAF Rule Set (Blocking Mode)
+Rule 2: Bypass WAF for Static Assets
+Criteria: ${request_uri} matches regex \.(css|js|ttf|eof|woff|woff2|svg|jpg|jpeg|gif|bmp|png|ico)(\?.*)?$
+Behavior: Bypass WAF
+Rule 3: Cache Static Assets
+Criteria: `${request_uri} matches regex .(css|js
+
+#######################################
+
+# Question 2:
+How do I create a WAF rule set in Azion that applies only to the /login path, covering OWASP Top 10 threats including SQLi, XSS, and brute force?
+
+# Answer:
+To create a WAF rule set in Azion that applies only to the /login path and covers OWASP Top 10 threats such as SQL Injection (SQLi), Cross-Site Scripting (XSS), and brute force attacks, follow these steps:
+
+1. Create a WAF Rule Set
+Access the Azion Console:
+Navigate to Edge Libraries > WAF Rules.
+Click + WAF Rule Set to create a new rule set.
+Configure Threat Types:
+Enable the following threat families:
+SQL Injection: Detects and blocks SQLi attacks.
+Cross-Site Scripting (XSS): Prevents the injection of client-side scripts.
+Unwanted Access: Detects brute force attempts and unauthorized access.
+Set the Sensitivity Level for each threat family:
+Recommended: Medium or High (depending on your tolerance for false positives).
+Save the Rule Set:
+Provide a descriptive name (e.g., Login Protection Rule Set).
+Ensure the rule set is Active.
+
+2. Apply the WAF Rule Set to the /login Path
+Go to the Rules Engine for Firewall:
+Navigate to Firewall > Rules Engine.
+Select the firewall configuration where you want to apply the rule.
+Create a New Rule:
+Click + Rule and configure:
+Name: Protect /login with WAF.
+Criteria:
+Variable: Request Path.
+Operator: equals.
+Value: /login.
+Behavior:
+Action: Set WAF Rule Set.
+Select the WAF rule set created earlier (Login Protection Rule Set).
+Mode: Blocking.
+Save the Rule:
+Ensure the rule is active and positioned correctly in the Rules Engine.
+
+3. Monitor and Tune WAF
+Use WAF Tuning to analyze blocked requests and adjust settings to minimize false positives.
+Monitor threats using Real-Time Metrics and Real-Time Events.
+
+Additional Notes
+Regex for Path Matching: If /login has variations (e.g., /login?user=...), use a regex like ^/login(\?.*)?$ in the Criteria.
+Brute Force Protection: Combine WAF with rate-limiting rules in the Rules Engine to limit login attempts.
+
+########################################
+
+# Question 3:
+How do I configure a Rules Engine rule to not pass through the full inspection for static assets matching a particular regex?
+
+# Answer:
+
+To configure a Rules Engine rule in Azion to bypass full inspection for static assets matching a particular regex, follow these steps:
+
+1. Define the Rule in the Rules Engine
+Go to the Rules Engine for Firewall:
+Navigate to Firewall > Rules Engine in the Azion Console.
+Create a New Rule:
+Click + Rule and configure the following:
+Criteria:
+Variable: ${request_uri}
+Operator: matches
+Argument:
+.*\\.(jpg|jpeg|png|gif|css|js|ico|svg|woff|woff2|ttf|eot)$
+
+
+This regex matches common static asset file types (e.g., images, CSS, JS, fonts).
+Behavior:
+Type: Set WAF Rule Set
+Arguments:
+ID: <ID_OF_WAF_POLICY_WITHOUT_FULL_INSPECTION> (Replace this with the ID of a WAF policy that bypasses or disables full inspection for static assets).
+Mode: Blocking.
+Phase:
+Set the phase to REQUEST.
+Save the Rule:
+Ensure the rule is active and positioned correctly in the Rules Engine.
+
+2. Explanation of the Rule
+The rule matches requests for static assets based on the specified regex pattern in the URI.
+When a match is found, the rule applies a WAF Rule Set that is configured to bypass or disable full inspection for these assets.
+You must create or select a WAF policy that does not perform full inspection and use its ID in the rule.
+
+3. Additional Recommendations
+Test the rule to ensure it correctly bypasses inspection for the intended assets.
+Monitor traffic and adjust the regex pattern if additional file types need to be included.
+Use Real-Time Metrics and Real-Time Events to verify the rule's effectiveness.
+For further details, you can refer to the Azion documentation on Rules Engine and WAF configurations.
+
+########################################
+
+# Question 4:
+What cache settings should I apply in Azion to aggressively cache static files like CSS, JS, and images to minimize origin hits and reduce costs?
+
+Answer:
+1. Configure Cache Settings
+Browser Cache TTL:
+Set a high TTL (e.g., 1 year = 31,536,000 seconds) to ensure static files are cached in the user's browser for an extended period.
+Use the Override Cache Settings option to enforce this TTL, overriding the origin's cache headers.
+CDN Cache TTL:
+Similarly, set a high TTL for the edge cache to keep static files cached at Azion's edge locations for a long time.
+Use the Override Cache Settings option to enforce this TTL.
+
+2. Use Advanced Cache Key
+Cache by Query String:
+If your static files include query strings (e.g., for versioning), configure the cache to ignore query strings unless they are critical for differentiation.
+Example: Use Content does not vary by Query String to improve caching efficiency.
+Cache by Cookie:
+Ensure static files are not differentiated by cookies by selecting Content does not vary by Cookies.
+
+3. Create Rules in Rules Engine
+Criteria:
+Match requests for static files using a regex pattern:
+.*\\.(css|js|ttf|eot|woff|woff2|svg|jpg|jpeg|gif|bmp|png|ico)(\\?.*)?$
+
+
+Behavior:
+Set Cache TTL to a high value (e.g., 1 year).
+Enable Browser Cache and Edge Cache with the same TTL.
+
+4. Enable Stale Cache
+Activate Stale Cache to serve expired cached content if the origin is unavailable or slow to respond.
+Set a default stale window of 300 seconds (5 minutes) or more.
+
+5. Optimize Large File Delivery (Optional)
+For large static files, enable Large File Optimization to fragment files and reduce latency.
+
+6. Monitor Cache Performance
+Use the Pragma: azion-debug-cache header to inspect cache statuses (HIT, MISS, EXPIRED, etc.).
+Adjust TTLs and cache rules based on real-time metrics and traffic patterns.
+
+
+########################################
+
+Question 5:
+WHat's the most efficient way to configure CSRF mitigations?
+
+# Answer
+1. CSRF Mitigation via Tokens
+CSRF tokens are unique, unpredictable values that are tied to a user's session and validated on sensitive requests (e.g., form submissions).
+Steps to Implement CSRF Tokens
+Generate CSRF Tokens:
+Use your backend application to generate a unique CSRF token for each user session.
+Embed the token in forms or API requests as a hidden field or header.
+Validate CSRF Tokens at the Edge:
+Use Azion's Edge Functions to validate the CSRF token before forwarding the request to the origin.
+Example:
+Write an Edge Function that checks for the presence of a valid CSRF token in the request headers or body.
+If the token is missing or invalid, return a 403 Forbidden response.
+Deploy the Edge Function:
+Attach the Edge Function to your Edge Application using the Rules Engine.
+Create a rule with the following configuration:
+Criteria: Match sensitive paths (e.g., /submit, /update, /delete).
+Behavior: Run the CSRF validation Edge Function.
+
+2. CSRF Mitigation via Rate Limiting
+Rate limiting can help mitigate CSRF attacks by limiting the number of requests from a single source.
+Steps to Implement Rate Limiting
+Set Up a Rate Limiting Rule:
+Navigate to Firewall > Rules Engine in the Azion Console.
+Create a new rule with the following configuration:
+Criteria:
+Variable: ${request_uri}
+Operator: matches
+Value: Sensitive paths (e.g., /submit, /update, /delete).
+Behavior:
+Type: Rate Limiting.
+Arguments:
+Requests per Second: Set a limit (e.g., 10 requests per second).
+Action: Block or Throttle.
+Apply Rate Limiting to Specific IPs or Sessions:
+Use additional criteria to match requests by IP address (${remote_addr}) or session identifiers.
+Monitor and Adjust:
+Use Azion's Real-Time Metrics to monitor blocked requests and adjust rate limits as needed.
+
+3. Combine Both Approaches
+For robust CSRF protection, combine both token-based validation and rate limiting:
+Use CSRF tokens to validate the authenticity of requests.
+Use rate limiting as a secondary layer to prevent abuse or brute force attempts.
+
+4. Testing and Monitoring
+Test the implementation to ensure legitimate requests are not blocked.
+Use Azion's Real-Time Events and Real-Time Metrics to monitor traffic and identify potential CSRF attempts.
+
+
+
+
+
