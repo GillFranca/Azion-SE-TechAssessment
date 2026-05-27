@@ -1,0 +1,57 @@
+{
+  "count": 2,
+  "total_pages": 1,
+  "schema_version": 3,
+  "links": {
+    "previous": null,
+    "next": null
+  },
+  "results": [
+    {
+      "id": 17547,
+      "name": "WAF-LoginProtection",
+      "mode": "counting",
+      "active": true,
+      "sql_injection": true,
+      "sql_injection_sensitivity": "high",
+      "remote_file_inclusion": true,
+      "remote_file_inclusion_sensitivity": "medium",
+      "directory_traversal": true,
+      "directory_traversal_sensitivity": "medium",
+      "cross_site_scripting": true,
+      "cross_site_scripting_sensitivity": "high",
+      "evading_tricks": true,
+      "evading_tricks_sensitivity": "medium",
+      "file_upload": true,
+      "file_upload_sensitivity": "medium",
+      "unwanted_access": true,
+      "unwanted_access_sensitivity": "medium",
+      "identified_attack": true,
+      "identified_attack_sensitivity": "medium",
+      "bypass_addresses": []
+    },
+    {
+      "id": 17548,
+      "name": "ByPassWAF",
+      "mode": "counting",
+      "active": true,
+      "sql_injection": true,
+      "sql_injection_sensitivity": "medium",
+      "remote_file_inclusion": true,
+      "remote_file_inclusion_sensitivity": "medium",
+      "directory_traversal": true,
+      "directory_traversal_sensitivity": "medium",
+      "cross_site_scripting": true,
+      "cross_site_scripting_sensitivity": "medium",
+      "evading_tricks": true,
+      "evading_tricks_sensitivity": "medium",
+      "file_upload": true,
+      "file_upload_sensitivity": "medium",
+      "unwanted_access": true,
+      "unwanted_access_sensitivity": "medium",
+      "identified_attack": true,
+      "identified_attack_sensitivity": "medium",
+      "bypass_addresses": []
+    }
+  ]
+}
