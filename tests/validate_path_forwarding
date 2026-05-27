@@ -1,3 +1,5 @@
+# This file shows how an image is being served on a different path than the original
+
 curl -I https://fklsxzla7sy.map.azionedge.net/image/jpeg
 
 
