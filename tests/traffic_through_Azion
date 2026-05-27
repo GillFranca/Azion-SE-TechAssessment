@@ -1,3 +1,6 @@
+# This file the traffic going through Azion servers
+# 'x-azion-request-id' shows that the file reached Azion edge servers
+
 curl -v https://fklsxzla7sy.map.azionedge.net/get 2>&1 | grep -E "x-azion|HTTP/"
 
 
