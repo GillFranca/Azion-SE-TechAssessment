@@ -1,1 +1,8 @@
 
+This folder contains the following documents:
+
+- Technical Report:
+Implementation details justified from a technical and cost-efficiency perspective, including security decisions, WAF configuration, caching strategy, and architecture overview.
+
+- Deployment - Step-by-Step:
+How Azion's console was used to configure the reverse proxy, firewall rules, WAF, caching, and bypass rules.
