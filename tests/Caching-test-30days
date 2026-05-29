@@ -1,0 +1,18 @@
+curl -I https://fklsxzla7sy.map.azionedge.net/anything/test.css
+
+HTTP/2 200 
+date: Fri, 29 May 2026 20:47:00 GMT
+content-type: application/json; charset=utf-8
+content-length: 956
+access-control-allow-credentials: true
+access-control-allow-origin: *
+server: Fly/b59e3505 (2026-05-27)
+via: 1.1 fly.io, 1.1 fly.io
+fly-request-id: 01KSTMD4XJDTXWM8ERFRPKZN00-gru
+x-azion-request-id: 47bcfcf0415b0c59b5e9d6896739f47a
+x-azion-edge-location: CGH
+alt-svc: h3=":443"; ma=86400
+expires: Sun, 28 Jun 2026 20:47:00 GMT
+cache-control: max-age=2592000
+accept-ranges: bytes
+
